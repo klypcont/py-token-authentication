@@ -55,20 +55,20 @@ WSGI_APPLICATION = "py_token_authentication.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",  # noqa: E501
     }
 }
 
 AUTH_PASSWORD_VALIDATORS = [(
     {
-        "NAME": (`n                "django.contrib.auth.password_validation."`n                "UserAttributeSimilari\tyValidator"`n            )
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilari\tyValidator"  # noqa: E501
     },
-    {"NAME": (`n                "django.contrib.auth.password_validation."`n                "MinimumLengthValidator"`n            )},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},  # noqa: E501
     {
-        "NAME": (`n                "django.contrib.auth.password_validation."`n                "CommonPasswordValidat\or"`n            )
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidat\or"  # noqa: E501
     },
     {
-        "NAME": (`n                "django.contrib.auth.password_validation."`n                "NumericPasswordValida\tor"`n            )
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValida\tor"  # noqa: E501
     },
 ]
 
