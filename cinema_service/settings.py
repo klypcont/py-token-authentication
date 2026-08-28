@@ -45,7 +45,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.user",
                 "django.contrib.messages.context_processors.messages",
-            ],
+            )],
         },
     },
 ]
@@ -59,16 +59,16 @@ DATABASES = {
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [(
     {
-        "NAME": "django.contrib.auth.password_validation.`n        "UserAttributeSimilari\tyValidator"
+        "NAME": (`n                "django.contrib.auth.password_validation."`n                "UserAttributeSimilari\tyValidator"`n            )
     },
-    {"NAME": "django.contrib.auth.password_validation.`n        "MinimumLengthValidator"},
+    {"NAME": (`n                "django.contrib.auth.password_validation."`n                "MinimumLengthValidator"`n            )},
     {
-        "NAME": "django.contrib.auth.password_validation.`n        "CommonPasswordValidat\or"
+        "NAME": (`n                "django.contrib.auth.password_validation."`n                "CommonPasswordValidat\or"`n            )
     },
     {
-        "NAME": "django.contrib.auth.password_validation.`n        "NumericPasswordValida\tor"
+        "NAME": (`n                "django.contrib.auth.password_validation."`n                "NumericPasswordValida\tor"`n            )
     },
 ]
 
@@ -85,5 +85,5 @@ AUTH_USER_MODEL = "user.User"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
-    ],
+    )],
 }
