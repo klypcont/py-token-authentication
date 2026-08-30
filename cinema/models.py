@@ -99,7 +99,38 @@ class Ticket(models.Model):
                         f"(1, {cinema_hall_attr_name}): "
                         f"(1, {count_attrs})"
                     }
+                )class Ticket(models.Model):
+    movie_session = models.ForeignKey(
+        MovieSession, on_delete=models.CASCADE, related_name="tickets"
+    )
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name="tickets"
+    )
+    row = models.IntegerField()
+    seat = models.IntegerField()
+
+    @staticmethod
+    def validate_ticket(row, seat, cinema_hall, error_to_raise):
+        for ticket_attr_value, ticket_attr_name, cinema_hall_attr_name in [
+            (row, "row", "rows"),
+            (seat, "seat", "seats_in_row"),
+        ]:
+            count_attrs = getattr(cinema_hall, cinema_hall_attr_name)
+            if not (1 <= ticket_attr_value <= count_attrs):
+                raise error_to_raise(
+                    {
+                        ticket_attr_name: f"{ticket_attr_name} number "
+                        f"must be in available range: "
+                        f"(1, {cinema_hall_attr_name}): "
+                        f"(1, {count_attrs})"
+                    }
                 )
+
+    def __str__(self):
+        return (
+            f"{str(self.movie_session)} "
+            f"(row: {self.row}, seat: {self.seat})"
+        )
 
     def clean(self):
         Ticket.validate_ticket(
