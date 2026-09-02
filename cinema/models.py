@@ -97,17 +97,3 @@ class Ticket(models.Model):
                         f"must be in range (1, {cinema_hall_attr})"
                     }
                 )
-
-    @staticmethod
-    def validate_ticket(seat, row, cinema_hall, error_to_raise):
-        for ticket_attr_value, ticket_attr_name, cinema_hall_attr in (
-            (seat, "seat", cinema_hall.seats_in_row),
-            (row, "row", cinema_hall.rows),
-        ):
-            if not (1 <= ticket_attr_value <= cinema_hall_attr):
-                raise error_to_raise(
-                    {
-                        ticket_attr_name: f"{ticket_attr_name} number "
-                        f"must be in range (1, {cinema_hall_attr})"
-                    }
-                )

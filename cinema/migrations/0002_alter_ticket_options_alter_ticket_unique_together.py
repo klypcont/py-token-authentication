@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cinema', '0001_initial'),
+        ("cinema", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='ticket',
+            name="ticket",
             options={},
         ),
         migrations.AlterUniqueTogether(
-            name='ticket',
+            name="ticket",
             unique_together=set(),
         ),
     ]
