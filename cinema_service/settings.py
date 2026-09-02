@@ -32,7 +32,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "py_token_authentication.urls"
+ROOT_URLCONF = "cinema_service.urls"
 
 TEMPLATES = [
     {
@@ -43,6 +43,7 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
                 "django.contrib.auth.context_processors.user",
                 "django.contrib.messages.context_processors.messages",
             ],

@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model, authenticate
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 
@@ -7,7 +7,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "email", "password", "is_staff")
-        extra_kwargs = {"password": {"write_only": True, "min_length": 5}}
+        read_only_fields = ("id", "is_staff")
+        extra_kwargs = {
+            "password": {
+                "write_only": True,
+                "min_length": 5,
+                "style": {"input_type": "password"},
+            }
+        }
 
     def create(self, validated_data):
         return get_user_model().objects.create_user(**validated_data)
@@ -15,17 +22,23 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         password = validated_data.pop("password", None)
         user = super().update(instance, validated_data)
+
         if password:
             user.set_password(password)
             user.save()
+
         return user
 
 
 class AuthTokenSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.CharField(label=_("Email"), write_only=True)
     password = serializers.CharField(
-        style={"input_type": "password"}, trim_whitespace=False
+        label=_("Password"),
+        style={"input_type": "password"},
+        trim_whitespace=False,
+        write_only=True,
     )
+    token = serializers.CharField(label=_("Token"), read_only=True)
 
     def validate(self, attrs):
         email = attrs.get("email")
@@ -38,14 +51,11 @@ class AuthTokenSerializer(serializers.Serializer):
                 password=password,
             )
             if not user:
-                raise serializers.ValidationError(
-                    _("Unable to log in with provided credentials."),
-                    code="authorization",
-                )
+                msg = _("Unable to log in with provided credentials.")
+                raise serializers.ValidationError(msg, code="authorization")
         else:
-            raise serializers.ValidationError(
-                _('Must include "email" and "password".'), code="authorization"
-            )
+            msg = _('Must include "email" and "password".')
+            raise serializers.ValidationError(msg, code="authorization")
 
         attrs["user"] = user
         return attrs
