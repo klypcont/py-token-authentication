@@ -51,7 +51,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "py_token_authentication.wsgi.application"
+WSGI_APPLICATION = "cinema_service.wsgi.application"
 
 DATABASES = {
     "default": {
